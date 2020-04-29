@@ -477,6 +477,14 @@ namespace TestingEchoBot.Bots
             shopTwo.Description = "Description for product information will be provided here";
             shopTwo.IsDeleted = false;
             shop.Add(shopTwo);
+
+            Shop shopThree = new Shop();
+            shopThree.ID = 3;
+            shopThree.Name = "Huawei";
+            shopThree.Address = "Mandalay";
+            shopThree.Description = "Description for product information will be provided here";
+            shopThree.IsDeleted = false;
+            shop.Add(shopThree);
         }
 
         public void AddCategoryData()
@@ -490,7 +498,7 @@ namespace TestingEchoBot.Bots
 
             Category categoryTwo = new Category();
             categoryTwo.ID = 2;
-            categoryTwo.Name = "Electronic";
+            categoryTwo.Name = "Clothing";
             categoryTwo.Description = "Description for product information will be provided here";
             categoryTwo.IsDeleted = false;
             category.Add(categoryTwo);
@@ -528,7 +536,7 @@ namespace TestingEchoBot.Bots
             productThree.ShopID = 2;
             productThree.ShopName = "H&M";
             productThree.CategoryID = 2;
-            productThree.CategoryName = "Electronic";
+            productThree.CategoryName = "Clothing";
             product.Add(productThree);
 
             Product productFour = new Product();
@@ -539,8 +547,19 @@ namespace TestingEchoBot.Bots
             productFour.ShopID = 2;
             productFour.ShopName = "H&M";
             productFour.CategoryID = 2;
-            productFour.CategoryName = "Electronic";
+            productFour.CategoryName = "Clothing";
             product.Add(productFour);
+
+            Product productFive = new Product();
+            productFive.ID = 5;
+            productFive.Name = "Huawei P40 pro";
+            productFive.Description = "Description for product information will be provided here";
+            productFive.IsDeleted = false;
+            productFive.ShopID = 3;
+            productFive.ShopName = "Huawei";
+            productFive.CategoryID = 1;
+            productFive.CategoryName = "Phone";
+            product.Add(productFive);
         }
 
     }
