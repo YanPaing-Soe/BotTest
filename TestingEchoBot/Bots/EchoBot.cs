@@ -363,8 +363,69 @@ namespace TestingEchoBot.Bots
 
 
             }
+            else if (isFromStepThree(turnContext.Activity.Text))
+            {
+                var attachments = new List<Attachment>();
+                var cardOne = new HeroCard
+                {
+                    Title = turnContext.Activity.Text,
+                    Text = "Message will be provided here after receiving an order",
+                    Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                    Buttons = new List<CardAction>
+                {
 
-            else
+                    new CardAction(ActionTypes.OpenUrl, title: "Track my order", value: "www.google.com"),
+                    new CardAction(ActionTypes.OpenUrl, title: "Find more", value: "www.google.com"),
+                },
+                };
+                var cardTwo = new HeroCard
+                {
+                    Title = "Your order is being prepared",
+                    Text = "Message will be provided here after receiving an order",
+                    Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                    Buttons = new List<CardAction>
+                {
+
+                    new CardAction(ActionTypes.OpenUrl, title: "Track my order", value: "www.google.com"),
+                    new CardAction(ActionTypes.OpenUrl, title: "Find more", value: "www.google.com"),
+                },
+                };
+                var cardThree = new HeroCard
+                {
+                    Title = "Your order is being delivered",
+                    Text = "Message will be provided here after receiving an order",
+                    Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                    Buttons = new List<CardAction>
+                {
+
+                    new CardAction(ActionTypes.OpenUrl, title: "Track my order", value: "www.google.com"),
+                    new CardAction(ActionTypes.OpenUrl, title: "Find more", value: "www.google.com"),
+                },
+                };
+
+                var cardFour = new HeroCard
+                {
+                    Title = "Your feedback is awesome",
+                    Text = "Let's us know your feedback on our service.We do appreciate it",
+                    Images = new List<CardImage> { new CardImage("https://sec.ch9.ms/ch9/7ff5/e07cfef0-aa3b-40bb-9baa-7c9ef8ff7ff5/buildreactionbotframework_960.jpg") },
+                    Buttons = new List<CardAction>
+        {
+
+            new CardAction(ActionTypes.ImBack, title: "Not happy", value: "Not happy"),
+            new CardAction(ActionTypes.ImBack, title: "Just OK", value: "Just OK"),
+            new CardAction(ActionTypes.ImBack, title: "Very happy", value: "Very happy"),
+        },
+                };
+                attachments.Add(cardOne.ToAttachment());
+                attachments.Add(cardTwo.ToAttachment());
+                attachments.Add(cardThree.ToAttachment());
+                attachments.Add(cardFour.ToAttachment());
+
+                var reply = MessageFactory.Attachment(attachments);
+                await turnContext.SendActivityAsync(reply, cancellationToken);
+
+            }
+            else // stepThree
             {
                 {
                     var attachments = new List<Attachment>();
@@ -383,7 +444,7 @@ namespace TestingEchoBot.Bots
         {
 
             new CardAction(ActionTypes.OpenUrl, title: "More information", value: "www.google.com"),
-            new CardAction(ActionTypes.OpenUrl, title: "Order now", value: "www.google.com"),
+            new CardAction(ActionTypes.ImBack, title: "Order now", value: product.Name),
             new CardAction(ActionTypes.OpenUrl, title: "Contact us", value: "www.google.com"),
         },
                                 };
@@ -410,7 +471,7 @@ namespace TestingEchoBot.Bots
         {
 
             new CardAction(ActionTypes.OpenUrl, title: "More information", value: "www.google.com"),
-            new CardAction(ActionTypes.OpenUrl, title: "Order now", value: "www.google.com"),
+            new CardAction(ActionTypes.ImBack, title: "Order now", value: product.Name),
             new CardAction(ActionTypes.OpenUrl, title: "Contact us", value: "www.google.com"),
         },
                                 };
@@ -442,6 +503,14 @@ namespace TestingEchoBot.Bots
         {
             var keywords = new List<string> { "See product", };
             return keywords.Contains(text);
+        }
+
+        public bool isFromStepThree(string text)
+        {
+            int index = product.FindIndex(x => x.Name == text);
+            if (index < 0)
+                return false;
+            else return true;
         }
 
         public bool isFromShop(string text)
